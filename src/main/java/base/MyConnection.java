@@ -6,11 +6,11 @@ import java.util.List;
 
 public class MyConnection {
     public void create(String name, String brand, String type, int strings) throws SQLException {
-        try (Connection connection = getConnection()) {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(
-                            "insert into guitars_table(id, name, brand, type, strings) " +
-                                    "VALUES(default, ?, ?, ?, ?);");
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement =
+                     connection.prepareStatement(
+                             "insert into guitars_table(id, name, brand, type, strings) " +
+                                     "VALUES(default, ?, ?, ?, ?);")) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, brand);
             preparedStatement.setString(3, type);
@@ -20,8 +20,9 @@ public class MyConnection {
     }
 
     public List<Guitar> read() throws SQLException {
-        try (Connection connection = getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from guitars_table;");
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement =
+                     connection.prepareStatement("select * from guitars_table;")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Guitar> guitars = mapping(resultSet);
             return guitars;
@@ -29,15 +30,37 @@ public class MyConnection {
     }
 
     public void update(int id, String name, String brand, String type, int strings) throws SQLException {
-        try (Connection connection = getConnection()) {
+        try (
+                Connection connection = getConnection();
+                PreparedStatement prepStatRead = connection.prepareStatement(
+                        "select * from guitars_table where id=?")) {
+            prepStatRead.setInt(1, id);
+            ResultSet resultSet = prepStatRead.executeQuery();
+            ArrayList<Guitar> guitars = mapping(resultSet);
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
                             "update guitars_table set \"name\"   = ?, \"brand\"= ?, \"type\"=?, \"strings\"=? where id =?;");
             preparedStatement.setInt(5, id);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, brand);
-            preparedStatement.setString(3, type);
-            preparedStatement.setInt(4, strings);
+            if (!name.equals(null) & !name.equals("") & !guitars.get(0).getName().equals(name)) {
+                preparedStatement.setString(1, name);
+            } else {
+                preparedStatement.setString(1, guitars.get(0).getName());
+            }
+            if (!brand.equals(null) & !brand.equals("") & !guitars.get(0).getBrand().equals(brand)) {
+                preparedStatement.setString(2, brand);
+            } else {
+                preparedStatement.setString(2, guitars.get(0).getBrand());
+            }
+            if (!type.equals(null) & !type.equals("") & !guitars.get(0).getType().equals(type)) {
+                preparedStatement.setString(3, type);
+            } else {
+                preparedStatement.setString(3, guitars.get(0).getType());
+            }
+            if (strings != 0 & guitars.get(0).getStrings() != strings) {
+                preparedStatement.setInt(4, strings);
+            } else {
+                preparedStatement.setInt(4, guitars.get(0).getStrings());
+            }
             preparedStatement.execute();
         }
     }
@@ -49,6 +72,7 @@ public class MyConnection {
                 preparedStatement = connection.prepareStatement("delete from guitars_table where id = ?;");
                 preparedStatement.setInt(1, ints[i]);
                 preparedStatement.execute();
+                preparedStatement.close();
             }
         }
     }
