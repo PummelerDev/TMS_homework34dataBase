@@ -55,6 +55,13 @@ public class Guitar {
                 ", brand='" + brand + '\'' +
                 ", type='" + type + '\'' +
                 ", strings=" + strings +
-                '}';
+                "}";
+    }
+    public String print(){
+        return "id=" + id +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", type='" + type + '\'' +
+                ", strings=" + strings +"."+'\n';
     }
 }
