@@ -25,7 +25,14 @@ public class ReadServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         System.out.println(guitars);
+
+        StringBuilder guitarsPrint = new StringBuilder();
+        for (Guitar guitar:
+             guitars) {
+            guitarsPrint.append(guitar.print());
+        }
         req.setAttribute("guitars", guitars);
+        req.setAttribute("guitarsPrint", guitarsPrint);
         getServletContext().getRequestDispatcher("/read.jsp").forward(req, resp);
     }
 }

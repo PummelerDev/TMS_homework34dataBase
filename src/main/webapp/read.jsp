@@ -29,5 +29,8 @@
     </c:forEach>
 </ul>
 <%=request.getAttribute("guitars")%>
+<p></p>
+<p><%=request.getAttribute("guitarsPrint")%>
+</p>
 </body>
 </html>

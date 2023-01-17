@@ -22,7 +22,7 @@ public class MyConnection {
     public List<Guitar> read() throws SQLException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
-                     connection.prepareStatement("select * from guitars_table;")) {
+                     connection.prepareStatement("select * from guitars_table order by id;")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Guitar> guitars = mapping(resultSet);
             return guitars;
