@@ -57,11 +57,12 @@ public class Guitar {
                 ", strings=" + strings +
                 "}";
     }
-    public String print(){
+
+    public String print() {
         return "id=" + id +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
                 ", type='" + type + '\'' +
-                ", strings=" + strings +"."+'\n';
+                ", strings=" + strings + "." + '\n';
     }
 }

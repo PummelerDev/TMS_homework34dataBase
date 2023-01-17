@@ -27,8 +27,8 @@ public class ReadServlet extends HttpServlet {
         System.out.println(guitars);
 
         StringBuilder guitarsPrint = new StringBuilder();
-        for (Guitar guitar:
-             guitars) {
+        for (Guitar guitar :
+                guitars) {
             guitarsPrint.append(guitar.print());
         }
         req.setAttribute("guitars", guitars);

@@ -15,7 +15,7 @@ public class CreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MyConnection connection =new MyConnection();
+        MyConnection connection = new MyConnection();
         String name = req.getParameter("name");
         String brand = req.getParameter("brand");
         String type = req.getParameter("type");
@@ -26,6 +26,6 @@ public class CreateServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        getServletContext().getRequestDispatcher("/index.html").forward(req,resp);
+        getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
     }
 }

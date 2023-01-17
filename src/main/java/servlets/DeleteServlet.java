@@ -19,7 +19,7 @@ public class DeleteServlet extends HttpServlet {
         MyConnection connection = new MyConnection();
         System.out.println(req.getParameter("id"));
 
-            int[] id = Arrays.stream(req.getParameter("id").replaceAll(",","").replaceAll("\\s+"," ").split(" ")).mapToInt(Integer::parseInt).toArray();
+        int[] id = Arrays.stream(req.getParameter("id").replaceAll(",", "").replaceAll("\\s+", " ").split(" ")).mapToInt(Integer::parseInt).toArray();
         try {
             connection.delete(id);
         } catch (SQLException e) {
