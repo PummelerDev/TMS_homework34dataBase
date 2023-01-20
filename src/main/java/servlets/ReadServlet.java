@@ -1,6 +1,6 @@
 package servlets;
 
-import base.Guitar;
+import models.Guitar;
 import base.MyConnection;
 
 import javax.servlet.ServletException;

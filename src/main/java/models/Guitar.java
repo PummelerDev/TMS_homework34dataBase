@@ -1,4 +1,4 @@
-package base;
+package models;
 
 public class Guitar {
     private int id;
@@ -49,7 +49,7 @@ public class Guitar {
 
     @Override
     public String toString() {
-        return "base.Guitar{" +
+        return "models.Guitar{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
